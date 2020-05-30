@@ -1,27 +1,35 @@
-import React, { useState } from "react";
+import React from "react";
+import { connect } from "react-redux";
 
-import Box from "./components/box/box";
+import Boxes from "./components/boxes/boxes";
+
+import {
+  changeBox1Color,
+  changeBox2Color,
+  changeBox3Color,
+} from "./redux/box/box.actions";
 
 import "./App.scss";
 
-function App() {
-  const [changeColor, setChangeColor] = useState(false);
-
+function App({ changeAllColors }) {
   return (
     <div className="App">
       <div className="boxes">
-        <button
-          className="main-btn"
-          onClick={() => setChangeColor(!changeColor)}
-        >
+        <button onClick={() => changeAllColors()} className="main-btn">
           Change All Colors
         </button>
-        <Box changeBoxColor={changeColor} color={["red", "green", "blue"]} />
-        <Box changeBoxColor={changeColor} color={["blue", "purple", "black"]} />
-        <Box changeBoxColor={changeColor} color={["green", "blue", "red"]} />
+        <Boxes />
       </div>
     </div>
   );
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => ({
+  changeAllColors: () => {
+    dispatch(changeBox1Color());
+    dispatch(changeBox2Color());
+    dispatch(changeBox3Color());
+  },
+});
+
+export default connect(null, mapDispatchToProps)(App);

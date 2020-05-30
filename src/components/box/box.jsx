@@ -1,27 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import "./box.scss";
 
-const Box = ({ color, changeBoxColor }) => {
-  const boxColorCollection = color;
-  const [currentColorIndex, setCurrentColorIndex] = useState(0);
-
-  const changeColor = () => {
-    if (currentColorIndex === 2) {
-      setCurrentColorIndex(0);
-    } else {
-      setCurrentColorIndex(currentColorIndex + 1);
-    }
-  };
-  useEffect(() => {
-    changeColor();
-  }, [changeBoxColor]);
+const Box = ({ changeBoxColor, boxColors, colorIndex }) => {
   return (
     <div
-      style={{ backgroundColor: `${boxColorCollection[currentColorIndex]}` }}
+      style={{ backgroundColor: `${boxColors[colorIndex]}` }}
       className="box"
     >
-      <button onClick={() => changeColor()}>Change My Color</button>
+      <button onClick={() => changeBoxColor()}>Change My Color</button>
     </div>
   );
 };
